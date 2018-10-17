@@ -6,24 +6,23 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatTableModule } from '@angular/material';
-import { FirstPageComponent } from './first-page/first-page.component';
-import { SecondPageComponent } from './second-page/second-page.component';
-import { ThirdPageComponent } from './third-page/third-page.component';
+import { MatToolbarModule,MatInputModule , MatButtonModule, MatFormFieldModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatTableModule } from '@angular/material';
+import { UserListPageComponent } from './user-list/user-list-page.component';
+import { UserFormPageComponent } from './user-form/user-form-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';  
 
 const appRoutes: Routes = [
-  { path: 'userList', component: FirstPageComponent},
-  { path: 'second-page', component: SecondPageComponent},
-  { path: 'third-page', component: ThirdPageComponent}
+  { path: 'userList', component: UserListPageComponent},
+  { path: 'second-page', component: UserFormPageComponent},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     MyNavComponent,
-    FirstPageComponent,
-    SecondPageComponent,
-    ThirdPageComponent
+    UserListPageComponent,
+    UserFormPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +35,12 @@ const appRoutes: Routes = [
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
