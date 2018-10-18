@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators ,FormsModule,NgForm } from '@angular/forms'; 
 @Component({
   selector: 'app-user-form--page',
   templateUrl: './user-form-page.component.html',
   styleUrls: ['./user-form-page.component.css']
 })
+
 export class UserFormPageComponent implements OnInit {
+  @Input() userData: any;
+
   regiForm: FormGroup;  
   FirstName:string='';  
   LastName:string='';  
@@ -14,7 +17,7 @@ export class UserFormPageComponent implements OnInit {
   Gender:string='';  
   Blog:string='';  
   Email:string='';  
-  IsAccepted:number=0;  
+  IsAccepted:number=0; 
   constructor(private fb: FormBuilder) { 
     this.regiForm = fb.group({  
       'FirstName' : [null, Validators.required],  
@@ -26,6 +29,9 @@ export class UserFormPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges() {
+    console.log(this.userData);
+  }
   onChange(event:any)  
   {  
 

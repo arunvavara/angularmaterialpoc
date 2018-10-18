@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+import { element } from 'protractor';
+import { NgIf } from '@angular/common';
 
 export interface PeriodicElement {
   name: string;
@@ -9,7 +11,6 @@ export interface PeriodicElement {
   symbol: string;
   actions:any;
 }
-
 const ELEMENT_DATA: PeriodicElement[] = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H',actions:"" },
   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He',actions:""},
@@ -29,6 +30,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class UserListPageComponent implements OnInit {
 private dataSource:any;
 userFormVisibility:boolean = false;
+show_form_page:boolean = false;
+userData:any;
   constructor(private http:HttpClient) { }
 
   ngOnInit() {
@@ -38,11 +41,23 @@ userFormVisibility:boolean = false;
   
   }
 
-
+  editUserDetails(id){
+    this.loadUserForm();
+    this.http.get('https://gorest.co.in/public-api/users/'+id+'?access-token=07J57KaczxBrx6q2AUrFexhcFs7e9rzjJkv7').subscribe(data => {
+      this.userData = data;
+    });
+    
+  }
+  deleteUserDetails(id){
+    this.http.delete('https://gorest.co.in/public-api/users/'+id+'?access-token=07J57KaczxBrx6q2AUrFexhcFs7e9rzjJkv7').subscribe(data => {
+      location.reload();
+    });
+  }
 
   displayedColumns: string[] = ['id', 'name', 'address', 'email', 'status'];
 
-  loadUserForm() {
+  loadUserForm(){
+    this.show_form_page = !this.show_form_page;
     if(this.userFormVisibility){
       this.userFormVisibility = false;
     } else {
