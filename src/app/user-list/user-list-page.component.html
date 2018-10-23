@@ -2,7 +2,7 @@
   <mat-drawer-container class="example-container">
     <mat-drawer mode="side" opened></mat-drawer>
     <mat-drawer-content>
-      <p><button (click)="loadUserForm()" mat-raised-button>Add User</button></p>
+      <p><button (click)="loadUserFormAdd()" mat-raised-button>Add User</button></p>
 <table style="width: 100%; padding: 40px;" mat-table [dataSource]="dataSource.result" class="mat-elevation-z8">
     
       <!-- Position Column -->
@@ -44,7 +44,67 @@
 
 
 <div *ngIf="show_form_page">
-  <app-user-form--page [userData]="userData"></app-user-form--page>
+  <div class="add_user">
+    <mat-card>  
+        <!-- Title of an Card -->  
+        <mat-card-title>  
+          Add User
+        </mat-card-title>  
+      
+        <!-- Actual content starts from here -->  
+        <mat-card-content>  
+            <form [formGroup]="regiForm" (ngSubmit)="onFormSubmit(regiForm.value)">  
+                <table>  
+                    <tr>  
+                        <td>  
+                            <mat-form-field class="demo-full-width">  
+                                <input formControlName="FirstName" matInput placeholder="Name">  
+                            </mat-form-field>  
+                            <mat-error>  
+                                <span *ngIf="!regiForm.get('FirstName').valid && regiForm.get('FirstName').touched">Please enter First Name !!!</span>  
+                            </mat-error>  
+                        </td>   
+                    </tr> 
+                    <tr>  
+                        <td colspan="2">  
+                            <mat-form-field class="demo-full-width">  
+                                <textarea formControlName="Address" matInput placeholder="Address" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>  
+                            </mat-form-field>  
+                            <mat-error>  
+                                <span *ngIf="!regiForm.get('Address').valid && regiForm.get('Address').touched">Please enter proper address !!!</span>  
+                            </mat-error>  
+                        </td>  
+                    </tr>  
+    
+                    <tr>  
+                        <td colspan="2">  
+                            <mat-form-field class="demo-full-width">  
+                                <input formControlName="Email" matInput placeholder="Email">  
+                                <mat-hint>use like : demo@demo.com</mat-hint>  
+                                <mat-error>  
+                                    <span *ngIf="!regiForm.get('Email').valid && regiForm.get('Email').touched">Enter proper Email !!!</span>  
+                                </mat-error>  
+                            </mat-form-field>  
+                        </td>  
+                    </tr>   
+                    <tr *ngIf="editButton">  
+                        <td colspan="2" class="content-center">  
+                            <button mat-raised-button color="accent" (click)="updateUser()" [disabled]="!regiForm.valid">Update</button>  
+                        </td>  
+                    </tr>  
+                    <tr *ngIf="addButton" >  
+                      <td colspan="2" class="content-center">  
+                          <button mat-raised-button color="accent" (click)="addUser()" [disabled]="!regiForm.valid">Add</button>  
+                      </td>  
+                  </tr>
+                    <tr>  
+                        <td></td>  
+                    </tr>  
+                </table>  
+            </form>  
+        </mat-card-content>  
+    </mat-card>  
+</div>
 </div>
 
   
